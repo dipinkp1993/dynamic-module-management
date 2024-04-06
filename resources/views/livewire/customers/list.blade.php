@@ -10,7 +10,7 @@ new class extends Component {
     {
         return [
             'customers' => Customer::orderBy('created_at','DESC')->paginate(10),
-        ];
+        ];//loading blade view with this function to load customers
     }
     
 }; ?>

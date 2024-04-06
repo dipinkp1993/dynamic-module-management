@@ -4,24 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Client;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\ModuleController;
+/*Volt is an elegantly crafted functional API for Livewire that supports 
+single-file components, allowing a component's PHP logic and Blade templates 
+to coexist in the same file.
+*/
 Route::view('/', 'welcome');
-Route::get('/test',function(){
-    //$url="https://hexprojects.in/Service-Provider-Customer-Staging/api/country/list";
-    $url="http://localhost/api/list/";
-    $client = new Client(['base_uri' => 'http://localhost',
-    'timeout'  => 2.0]);
-    $options = [
-        'http_errors' => true,
-        'force_ip_resolve' => 'v4',
-        'connect_timeout' => 2,
-        'read_timeout' => 2,
-        'timeout' => 20000,
-    ];
-    $result = $client->request('GET','/api/list',$options);
-    $result = (string) $result->getBody();
-    $result = json_decode($result, true);
-    return $result;
-});
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -32,7 +21,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 Route::view('customers/list', 'customers.index')
     ->middleware(['auth', 'verified'])
-    ->name('customers.index');
+    ->name('customers.index');//Lets look at the customer listing
 Route::view('customers/create', 'customers.create')
     ->middleware(['auth', 'verified'])
     ->name('customers.create');
@@ -48,5 +37,32 @@ Route::view('invoices/create', 'invoices.create')
 Volt::route('invoices/{invoice}/edit', 'invoices.edit-invoice')
     ->middleware(['auth'])
     ->name('invoices.edit');
+/****Module Routes************************* */
+
+/*Volt::route('create/{module_name}', 'module.create')
+    ->middleware(['auth', 'verified'])
+    ->name('module.create');*/
+Route::get(
+        'list/{module_name?}',
+        [ModuleController::class, 'index']
+    )->name('module.list');
+
+Route::get(
+        'create/{module_name?}',
+        [ModuleController::class, 'create']
+    )->name('module.create');
+
+Route::post(
+        'store/{module_name?}',
+        [ModuleController::class, 'store']
+    )->name('module.store');
+
+Route::get('edit/{module_name}/{value_code}', [ModuleController::class, 'edit'])
+    ->name('module.edit');
+    
+Route::put('update/{module_name}/{value_code}', [ModuleController::class, 'update'])
+    ->name('module.update');
+
+/********************************************* */
 
 require __DIR__.'/auth.php';
