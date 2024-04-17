@@ -10,7 +10,7 @@ use App\Models\ModuleFieldValue;
 
 class ModuleController extends Controller
 {
-    public function index($module_name)
+    public function index($module_name=NULL)
     {
         $moduleDetail = Module::where('module_name', $module_name)->first();
 
@@ -51,7 +51,7 @@ class ModuleController extends Controller
         return view('module_elements.list', compact('module_name', 'fields', 'pagedResults'));
     }
 
-    public function create(Request $request,$module_name)
+    public function create(Request $request,$module_name=NULL)
     {
         $fields = getModuleFields($module_name,'create');
         if(!$fields)
@@ -88,7 +88,7 @@ class ModuleController extends Controller
 
         
     }
-    public function edit($module_name, $value_code)
+    public function edit($module_name=NULL, $value_code)
     {
         $moduleDetail = Module::where('module_name', $module_name)->firstOrFail();
     
