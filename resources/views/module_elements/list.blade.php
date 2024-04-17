@@ -39,7 +39,7 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 @if($field->reference_module!=NULL)
                                
-                                   {{ DB::table('module_field_values')->where('value_code', $result->{'field_' . $field->id})->first()->module_field_value }}
+                                   {{ DB::table($field->reference_module)->where('value_code', $result->{'field_' . $field->id})->first()->module_field_value }}
                                 @else
                                    {{ $result->{'field_' . $field->id} }}
                                 @endif

@@ -26,7 +26,7 @@ class ModuleController extends Controller
 
         $moduleFieldIds = $fields->pluck('id')->toArray();
         
-        $query = DB::table('module_field_values')->select('value_code');
+        $query = DB::table($module_name)->select('value_code');
 
         foreach ($moduleFieldIds as $moduleId) {
             $query->selectRaw("MAX(CASE WHEN module_field_id = $moduleId THEN module_field_value END) AS field_$moduleId");
@@ -82,7 +82,7 @@ class ModuleController extends Controller
                 'value_code'=>$moduleDetail->module_code.randomCode()
             ];
         }
-        DB::table('module_field_values')->insert($entityData);
+        DB::table($module_name)->insert($entityData);
 
         return redirect()->route('module.list',$module_name);
 
@@ -94,7 +94,7 @@ class ModuleController extends Controller
     
         $fields = getModuleFields($module_name, 'create');
     
-        $entity = DB::table('module_field_values')
+        $entity = DB::table($module_name)
             ->where('value_code', $value_code)
             ->get();
     
@@ -113,7 +113,7 @@ class ModuleController extends Controller
             if (!$module_field) {
                 continue;
             }
-            DB::table('module_field_values')
+            DB::table($module_name)
                 ->updateOrInsert(
                     ['value_code' => $value_code, 'module_field_id' => $module_field->id],
                     ['module_field_value' => $value]

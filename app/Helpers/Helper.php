@@ -33,7 +33,7 @@ function getModuleValues($module_name)
 
         $moduleFieldIds = $fields->pluck('id')->toArray();
         
-        $query = DB::table('module_field_values')->select('value_code');
+        $query = DB::table($module_name)->select('value_code');
 
         foreach ($moduleFieldIds as $moduleId) {
             $query->selectRaw("MAX(CASE WHEN module_field_id = $moduleId THEN module_field_value END) AS field_$moduleId");

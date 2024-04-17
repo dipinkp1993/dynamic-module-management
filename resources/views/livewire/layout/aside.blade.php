@@ -19,11 +19,11 @@ new class extends Component
                 Dashboard
             </a>
 
-            <a href="{{route('module.list','customer')}}"  wire:navigate class="flex items-center @if(request()->routeIs('customers.index'))active-nav-link @endif text-white py-4 pl-6 nav-item">
+            <a href="{{route('module.list','customers')}}"  wire:navigate class="flex items-center @if(request()->routeIs('customers.index'))active-nav-link @endif text-white py-4 pl-6 nav-item">
                 <i class="fas fa-sticky-note mr-3"></i>
                 Customers
             </a>
-            <a href="{{route('module.list','invoice')}}" wire:navigate class="flex items-center @if(request()->routeIs('invoices.index'))active-nav-link @endif text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{route('module.list','invoices')}}" wire:navigate class="flex items-center @if(request()->routeIs('invoices.index'))active-nav-link @endif text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
                 Invoices
             </a>

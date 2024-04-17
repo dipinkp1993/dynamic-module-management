@@ -8,17 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
-    protected $guarded = [
-        'id'
-    ];
-    protected $fillable = [
-        'customer_id',
-        'invoice_date',
-        'amount',
-        'status'
-    ];
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
 }

@@ -19,6 +19,30 @@ Route::view('dashboard', 'dashboard')
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
+
+/****Module Routes************************* */
+Route::get(
+    'list/{module_name?}',
+    [ModuleController::class, 'index']
+)->name('module.list');
+
+Route::get(
+    'create/{module_name?}',
+    [ModuleController::class, 'create']
+)->name('module.create');
+
+Route::post(
+    'store/{module_name?}',
+    [ModuleController::class, 'store']
+)->name('module.store');
+
+Route::get('edit/{module_name}/{value_code}', [ModuleController::class, 'edit'])
+->name('module.edit');
+
+Route::put('update/{module_name}/{value_code}', [ModuleController::class, 'update'])
+->name('module.update');
+
+/********************************************* */
 Route::view('customers/list', 'customers.index')
     ->middleware(['auth', 'verified'])
     ->name('customers.index');//Lets look at the customer listing
@@ -37,32 +61,6 @@ Route::view('invoices/create', 'invoices.create')
 Volt::route('invoices/{invoice}/edit', 'invoices.edit-invoice')
     ->middleware(['auth'])
     ->name('invoices.edit');
-/****Module Routes************************* */
 
-/*Volt::route('create/{module_name}', 'module.create')
-    ->middleware(['auth', 'verified'])
-    ->name('module.create');*/
-Route::get(
-        'list/{module_name?}',
-        [ModuleController::class, 'index']
-    )->name('module.list');
-
-Route::get(
-        'create/{module_name?}',
-        [ModuleController::class, 'create']
-    )->name('module.create');
-
-Route::post(
-        'store/{module_name?}',
-        [ModuleController::class, 'store']
-    )->name('module.store');
-
-Route::get('edit/{module_name}/{value_code}', [ModuleController::class, 'edit'])
-    ->name('module.edit');
-    
-Route::put('update/{module_name}/{value_code}', [ModuleController::class, 'update'])
-    ->name('module.update');
-
-/********************************************* */
 
 require __DIR__.'/auth.php';
